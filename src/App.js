@@ -5,51 +5,65 @@ class App extends Component {
     contacts: [],
     name: ''
   }
+
+  nameId = uuidv4();
+
+  // addObject = (text) => {
+  //   console.log(text)
+  //   const add = {id: this.nameId, name: text };    
+    
+  //   this.setState(({ contacts }) => ({
+  //       contacts: [add, ...contacts]
+  //   }))
+  // }
   
-  handleNameChange = event => {
-    // console.log(event.currentTarget.value);
-    this.setState({ name: event.currentTarget.value });
+  handleChange = event => {
+    const { value } = event.currentTarget;
+    this.setState({ name: value });
   }
   
-  addContact = () => {
-    
-    const {name } = this.state;
+  handleSubmit = (event) => {
+    event.preventDefault();    
+    // const { name } = this.state;
     // console.log(name)
-    this.setState((prevState) => {
-      // console.log(...prevState.contacts, [name])
-      if(name) {
-        return {
-          contacts: [...prevState.contacts, name]
-        }
-      }
-    })
+    // this.setState(this.addObject(name))
+    const add = { id: uuidv4(), name: this.state.name, };
+    
+    this.setState((prevState) => ({
+      contacts: [add, ...prevState.contacts],
+    }));
+    // this.reset() 
   }
 
-  // e.preventDefault();
+  reset = () => {
+    this.setState({name: ''})
+  } 
     
   render() {
     const {contacts, name } = this.state;
     return (
       <div>
         <h1>Phonebook</h1> 
-        <form>
-          <label>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor={this.nameId}>
             Name
             <input
               type="text"
               value={name}
-              onChange={this.handleNameChange}
+              onChange={this.handleChange}
+              id={this.nameId}
               name="name"
               pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
               title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
               required              
             />            
           </label>
+          <button tupe='submit'>Add contact</button>
         </form>        
-        <button
-          onClick={this.addContact}>Add contact</button>
+        
         <h2>Contacts</h2>
         <ul>
+          {/* {contacts} */}
           {contacts.map((contact) => (
             <li key = { uuidv4() }>{contact}</li>
           ))}
