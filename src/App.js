@@ -1,77 +1,43 @@
 import React, { Component } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import Form from './components/Form';
+
+
 class App extends Component {
   state = {
-    contacts: [],
-    name: ''
+    contacts: [
+    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+    ],
   }
 
-  nameId = uuidv4();
-
-  // addObject = (text) => {
-  //   console.log(text)
-  //   const add = {id: this.nameId, name: text };    
-    
-  //   this.setState(({ contacts }) => ({
-  //       contacts: [add, ...contacts]
-  //   }))
-  // }
+  addId = uuidv4(); 
+ 
+  formSubmitHandler = (text) => {
+    console.log('text:', text)
+    const add = { id: this.addId, name: text.name, number: text.number };
+    this.setState(({ contacts }) => ({
+        contacts: [add, ...contacts]
+    }))
+  }   
   
-  handleChange = event => {
-    const { value } = event.currentTarget;
-    this.setState({ name: value });
-  }
-  
-  handleSubmit = (event) => {
-    event.preventDefault();    
-    // const { name } = this.state;
-    // console.log(name)
-    // this.setState(this.addObject(name))
-    const add = { id: uuidv4(), name: this.state.name, };
-    
-    this.setState((prevState) => ({
-      contacts: [add, ...prevState.contacts],
-    }));
-    // this.reset() 
-  }
-
-  reset = () => {
-    this.setState({name: ''})
-  } 
-    
   render() {
-    const {contacts, name } = this.state;
     return (
       <div>
         <h1>Phonebook</h1> 
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor={this.nameId}>
-            Name
-            <input
-              type="text"
-              value={name}
-              onChange={this.handleChange}
-              id={this.nameId}
-              name="name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required              
-            />            
-          </label>
-          <button tupe='submit'>Add contact</button>
-        </form>        
+        <Form onSubmitForm={ this.formSubmitHandler }/>
         
         <h2>Contacts</h2>
         <ul>
-          {/* {contacts} */}
-          {contacts.map((contact) => (
-            <li key = { uuidv4() }>{contact}</li>
+          {this.state.contacts.map((contact) => (
+            <li key={this.addId}>{contact.name}: { contact.number }</li>
           ))}
         </ul>      
       </div>
     );
-  }
-  
+  }  
 }
 
 export default App;
