@@ -34,12 +34,16 @@
     margin-left: 10px;
 }
 
-input:hover{
+input:hover,
+input:active,
+input:focus {
     border: 5px solid rgba(0, 166, 255, 0.4);
     border-radius: 4px;
 }
 
-.button:hover {
+.button:hover,
+.button:active,
+.button:focus {
     background-color: rgba(0, 166, 255, 0.4);
     border-color: rgba(0, 166, 255, 0.4);
 }
