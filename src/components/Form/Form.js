@@ -7,6 +7,7 @@ class Form extends Component{
     state = {
         name: '',
         number: '',
+        
     }
     
     nameId = uuidv4();

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import Form from './components/Form';
+import Filter from './components/Filter';
 
 
 class App extends Component {
@@ -11,13 +12,14 @@ class App extends Component {
     {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
+    filter: '',
   }
 
-  addId = uuidv4(); 
+  contactsId = uuidv4();
  
   formSubmitHandler = (text) => {
     console.log('text:', text)
-    const add = { id: this.addId, name: text.name, number: text.number };
+    const add = { id: this.contactsId, name: text.name, number: text.number };
     this.setState(({ contacts }) => ({
         contacts: [add, ...contacts]
     }))
@@ -30,9 +32,10 @@ class App extends Component {
         <Form onSubmitForm={ this.formSubmitHandler }/>
         
         <h2>Contacts</h2>
+        <Filter onChangeFilter={ this.state.filter }/>
         <ul>
           {this.state.contacts.map((contact) => (
-            <li key={this.addId}>{contact.name}: { contact.number }</li>
+            <li key={uuidv4()}>{contact.name}: {contact.number}</li>
           ))}
         </ul>      
       </div>
