@@ -14,14 +14,32 @@ class App extends Component {
     filter: '',
   }
 
-  contactsId = uuidv4();
+  // contactsId = uuidv4();
+
+  noDubleContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter),
+    );
+  };
  
   formSubmitHandler = (text) => {
-    console.log('text:', text)
-    const add = { id: this.contactsId, name: text.name, number: text.number };
-    this.setState(({ contacts }) => ({
+    // console.log('text:', text)
+    const { contacts } = this.state;
+    const add = { id: uuidv4(), name: text.name, number: text.number };
+    
+    const filterName = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(text.name.toLowerCase()));
+    
+    if (filterName.length > 0) {
+      alert(`${add.name} is already in contacts!`);
+      return;      
+    };
+    
+    this.setState(( {contacts} ) => ({
         contacts: [add, ...contacts]
-    }))
+    }))      
   }
   
   changeFilter = e => {
@@ -32,7 +50,6 @@ class App extends Component {
   getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
-
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter),
     );
