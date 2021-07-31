@@ -1,12 +1,14 @@
+import ElementContactList from '../ElementContactList'
 import styles from './ContactList.module.scss'
 
 const ContactList = ({ contacts, onDeleteContact }) => (    
-    <ul>
-        {/* {console.log(contacts)} */}
+    <ul className={styles.contactList}>
         {contacts.map(({id, name, number}) => (
-            <li  className={styles.ContactList} key={id}>
-                <p className={styles.ContactList_name}>{name}: {number}</p>
-                <button onClick={() => onDeleteContact(id)}>Delete</button>            
+            <li  className={styles.contactList_items} key={id}>
+                <ElementContactList
+                    name={name}
+                    number={number}
+                    onDeleteContact={()=>onDeleteContact(id)} />
             </li>            
         ))}
     </ul>

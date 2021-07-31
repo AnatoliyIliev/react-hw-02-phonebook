@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import Form from './components/Form';
+import ContactForm from './components/ContactForm';
 import Filter from './components/Filter';
 import ContactList from './components/ContactList';
 class App extends Component {
@@ -12,22 +12,13 @@ class App extends Component {
     {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
     filter: '',
-  }
-
-  // contactsId = uuidv4();
-
-  noDubleContacts = () => {
-    const { filter, contacts } = this.state;
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter),
-    );
-  };
+  }  
  
   formSubmitHandler = (text) => {
     // console.log('text:', text)
+    const contactsId = uuidv4();
     const { contacts } = this.state;
-    const add = { id: uuidv4(), name: text.name, number: text.number };
+    const add = { id: contactsId, name: text.name, number: text.number };
     
     const filterName = contacts.filter(contact =>
       contact.name.toLowerCase().includes(text.name.toLowerCase()));
@@ -67,8 +58,7 @@ class App extends Component {
     return (
       <div>
         <h1>Phonebook</h1> 
-        <Form onSubmitForm={ this.formSubmitHandler }/>
-        
+        <ContactForm onSubmitForm={ this.formSubmitHandler }/>        
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactList

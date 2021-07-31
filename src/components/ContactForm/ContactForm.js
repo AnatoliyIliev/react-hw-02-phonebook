@@ -1,9 +1,9 @@
 // import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import styles from './Form.module.scss';
+import styles from './ContactForm.module.scss';
 
-class Form extends Component{
+class ContactForm extends Component{
     state = {
         name: '',
         number: '',
@@ -66,4 +66,4 @@ class Form extends Component{
     }
 }
 
-export default Form;
+export default ContactForm;
