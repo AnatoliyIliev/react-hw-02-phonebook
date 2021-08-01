@@ -1,5 +1,6 @@
-import ElementContactList from '../ElementContactList'
-import styles from './ContactList.module.scss'
+import ElementContactList from '../ElementContactList';
+import styles from './ContactList.module.scss';
+import PropTypes from 'prop-types';
 
 const ContactList = ({ contacts, onDeleteContact }) => (    
     <ul className={styles.contactList}>
@@ -12,6 +13,17 @@ const ContactList = ({ contacts, onDeleteContact }) => (
             </li>            
         ))}
     </ul>
-)
+);
+
+ContactList.propTypes = {
+    
+    contacts:PropTypes.arrayOf(
+        PropTypes.shape({
+            name:PropTypes.string.isRequired,
+            id:PropTypes.string.isRequired,
+        }).isRequired
+    ).isRequired,    
+    onDeleteContact: PropTypes.func.isRequired,
+};
 
 export default ContactList;

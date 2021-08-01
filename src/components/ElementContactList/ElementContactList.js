@@ -1,4 +1,4 @@
-import styles from './ElementContactList.module.scss'
+import styles from './ElementContactList.module.scss';
 
 
 const ElementContactList = ({ name, number, onDeleteContact }) => (
